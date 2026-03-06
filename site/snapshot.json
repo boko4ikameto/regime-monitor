@@ -1,0 +1,15 @@
+{
+  "asof_date": "init",
+  "asof_timestamp": "init",
+  "mode": "live",
+  "current_regime": 0,
+  "regime_probability": 0.0,
+  "all_regime_probabilities": [0, 0, 0, 0, 0, 0, 0],
+  "next_day_probabilities": [0, 0, 0, 0, 0, 0, 0],
+  "expected_durations": [0, 0, 0, 0, 0, 0, 0],
+  "schema_check": {
+    "extra_cols_ignored_count": 0,
+    "missing_cols_count": 0
+  },
+  "generated_at": "init"
+}
