@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Market Regime Monitor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      background: #f7f7f9;
+      color: #1f1f1f;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #555;
+      margin-bottom: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #dddddd;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid #dddddd;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eeeeee;
+      text-align: left;
+    }
+
+    th {
+      background: #fafafa;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .error {
+      color: #b00020;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Market Regime Monitor</h1>
+  <div class="subtitle">Daily live regime inference based on the trained PCA + HMM pipeline.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">As of date</div>
+      <div class="value" id="asof_date">...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Current regime</div>
+      <div class="value" id="current_regime">...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Regime probability</div>
+      <div class="value" id="regime_probability">...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Expected duration</div>
+      <div class="value" id="expected_duration">...</div>
+      <div class="small">Estimated mean duration of the current regime</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Generation timestamp</div>
+    <div id="generated_at">...</div>
+  </div>
+
+  <h2>Next-day regime probabilities</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Regime</th>
+        <th>Probability</th>
+      </tr>
+    </thead>
+    <tbody id="next_day_table">
+    </tbody>
+  </table>
+
+  <div class="footer">
+    This page is updated automatically by GitHub Actions.
+  </div>
+
+  <div id="error" class="error"></div>
+
+  <script>
+    fetch("snapshot.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Could not load snapshot.json");
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("asof_date").innerText = data.asof_date;
+        document.getElementById("current_regime").innerText = data.current_regime;
+        document.getElementById("regime_probability").innerText =
+          (100 * data.regime_probability).toFixed(2) + "%";
+        document.getElementById("expected_duration").innerText =
+          data.expected_durations[data.current_regime].toFixed(1) + " days";
+        document.getElementById("generated_at").innerText = data.generated_at;
+
+        const tbody = document.getElementById("next_day_table");
+        tbody.innerHTML = "";
+
+        data.next_day_probabilities.forEach((p, i) => {
+          const row = document.createElement("tr");
+
+          const c1 = document.createElement("td");
+          c1.textContent = i;
+
+          const c2 = document.createElement("td");
+          c2.textContent = (100 * p).toFixed(2) + "%";
+
+          row.appendChild(c1);
+          row.appendChild(c2);
+          tbody.appendChild(row);
+        });
+      })
+      .catch(err => {
+        document.getElementById("error").innerText = "Error: " + err.message;
+      });
+  </script>
+</body>
+</html>
