@@ -1,0 +1,10 @@
+pandas
+numpy
+yfinance
+scikit-learn
+hmmlearn
+joblib
+pyarrow
+fredapi
+python-dotenv
+scipy
