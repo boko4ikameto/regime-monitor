@@ -1,11 +1,16 @@
 import json
 import os
+import sys
+from pathlib import Path
 from datetime import datetime
 
 import joblib
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
 
 
 def _safe_float(x) -> float:
