@@ -122,7 +122,7 @@ def main():
     schema_path = "out_pca/features_raw.parquet"
     pca_path = "out_pca/pca_pipeline.joblib"
     hmm_path = "out_hmm/hmm7_model.joblib"
-    outdir = "site"
+    outdir = "docs"
 
     if not os.path.exists(schema_path):
         raise FileNotFoundError(f"Missing schema file: {schema_path}")
