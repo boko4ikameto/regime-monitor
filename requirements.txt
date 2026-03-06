@@ -8,3 +8,4 @@ pyarrow
 fredapi
 python-dotenv
 scipy
+ta
