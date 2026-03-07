@@ -36,6 +36,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/snapshot.json
+          git add docs/snapshot.json
           git commit -m "Auto-update live regime snapshot" || echo "No changes to commit"
           git push
