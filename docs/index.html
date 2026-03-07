@@ -156,7 +156,7 @@
         document.getElementById("asof_date").innerText = data.asof_date;
         document.getElementById("current_regime").innerText = data.current_regime;
         document.getElementById("regime_probability").innerText =
-          (100 * data.regime_probability).toFixed(10) + "%";
+          (100 * data.regime_probability).toFixed(4) + "%";
         document.getElementById("expected_duration").innerText =
           data.expected_durations[data.current_regime].toFixed(1) + " days";
         document.getElementById("generated_at").innerText = data.generated_at;
