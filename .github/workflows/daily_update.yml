@@ -3,7 +3,7 @@ name: Daily regime update
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 22 * * 1-5"
+    - cron: "45 23 * * 1-5"
 
 permissions:
   contents: write
