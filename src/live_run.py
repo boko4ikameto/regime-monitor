@@ -215,6 +215,7 @@ def main():
         "current_regime": state,
         "regime_probability": _safe_float(p_t[state]),
         "all_regime_probabilities": [_safe_float(x) for x in p_t],
+        "days_in_current_regime": int(days_in_current_regime),
         "next_day_probabilities": [_safe_float(x) for x in p_next],
         "expected_durations": [_safe_float(x) for x in exp_dur],
         "schema_check": {
