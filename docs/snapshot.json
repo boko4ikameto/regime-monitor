@@ -31,6 +31,7 @@
     135.6935991886655,
     44.00161064580629
   ],
+  "days_in_current_regime": int(days_in_current_regime),
   "schema_check": {
     "extra_cols_ignored_count": 0,
     "missing_cols_count": 0
