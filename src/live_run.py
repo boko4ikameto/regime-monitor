@@ -179,6 +179,17 @@ def main():
     states = hmm_model.predict(Z)
 
     current_regime = int(states[-1])
+
+    days_in_current_regime = 1
+    for s in states[-2::-1]:
+        if int(s) == current_regime:
+            days_in_current_regime += 1
+        else:
+            break                                                                                                                                    
+
+    states = hmm_model.predict(Z)
+
+    current_regime = int(states[-1])
     
     days_in_current_regime = 1
     for s in states[-2::-1]:
