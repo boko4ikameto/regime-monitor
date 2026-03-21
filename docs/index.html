@@ -166,6 +166,8 @@
         document.getElementById("expected_duration").innerText =
           data.expected_durations[data.current_regime].toFixed(1) + " days";
         document.getElementById("generated_at").innerText = data.generated_at;
+        document.getElementById("days_in_current_regime").innerText =
+          data.days_in_current_regime;
 
         const tbody = document.getElementById("next_day_table");
         tbody.innerHTML = "";
