@@ -176,9 +176,20 @@ def main():
     Z = pca_pipeline.transform(X_aligned.values)
     proba = hmm_model.predict_proba(Z)
 
+    states = hmm_model.predict(Z)
+
+    current_regime = int(states[-1])
+    
+    days_in_current_regime = 1
+    for s in states[-2::-1]:
+        if int(s) == current_regime:
+            days_in_current_regime += 1
+        else:
+            break
+
     dt_last = X_aligned.index[-1]
     p_t = proba[-1]
-    state = int(np.argmax(p_t))
+    state = current_regime
 
     A = hmm_model.transmat_
     p_next = p_t @ A
